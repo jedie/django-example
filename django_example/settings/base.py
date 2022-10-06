@@ -28,6 +28,10 @@ print(f'BASE_PATH:{BASE_PATH}')
 
 ###############################################################################
 
+LOGIN_URL = 'admin:login'
+
+###############################################################################
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False

@@ -6,8 +6,10 @@ from pathlib import Path
 from typing import Union
 
 from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest
-from django.views.generic import TemplateView
+from django.views.generic import RedirectView, TemplateView
 
 from django_example import __version__
 
@@ -62,3 +64,16 @@ class DebugView(TemplateView):
                 )
             )
         return super().get_context_data(**context)
+
+
+class LoginRequiredView(LoginRequiredMixin, RedirectView):
+    pattern_name = 'admin:index'
+
+    def handle_no_permission(self):
+        logger.info('User: "%s" do not pass the "LoginRequired" check', self.request.user)
+        return super().handle_no_permission()
+
+    def get(self, request, *args, **kwargs):
+        logger.info('User: "%s" pass the "LoginRequired" check, ok.', request.user)
+        messages.success(request, 'You pass the "LoginRequired" check, ok.')
+        return super().get(request, *args, **kwargs)
