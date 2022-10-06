@@ -1,0 +1,9 @@
+.*
+!.github
+!.editorconfig
+!.flake8
+!.gitignore
+__pycache__
+secret.txt
+/coverage.xml
+/htmlcov/

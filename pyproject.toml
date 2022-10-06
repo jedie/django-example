@@ -1,0 +1,80 @@
+[tool.poetry]
+name = "django-example"
+version = "0.0.1rc0"
+description = "Demo YunoHost Application to demonstrate the integration of a Django project under YunoHost."
+authors = ["JensDiemer <git@jensdiemer.de>"]
+license = "GPL"
+homepage = "https://github.com/jedie/django-example"
+packages = [{ include = "django_example" }]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/jedie/django-example/issues"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<4.0.0"  # Stay with 3.9 until YunoHost used >=Debian 11 (Bullseye)
+django-tools = "*"  # https://github.com/jedie/django-tools/
+django_yunohost_integration = ">=0.5.0rc1"  # https://github.com/YunoHost-Apps/django_yunohost_integration
+
+[tool.poetry.dev-dependencies]
+bx_py_utils = "*"  # https://github.com/boxine/bx_py_utils
+bx_django_utils = "*"  # https://github.com/boxine/bx_django_utils
+tox = "*"
+darker = "*"  # https://github.com/akaihola/pytest-darker
+coveralls = "*"
+isort = "*"
+flake8 = "*"
+EditorConfig = "*"  # https://github.com/editorconfig/editorconfig-core-py
+safety = "*"  # https://github.com/pyupio/safety
+requests = "*"  # https://github.com/psf/requests
+packaging = "*"  # https://github.com/pypa/packaging
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.darker]
+src = ['.']
+revision = "origin/main..."
+line_length = 100
+verbose = true
+skip_string_normalization = true
+diff = false
+check = false
+stdout = false
+isort = true
+lint = [
+    "flake8",
+]
+log_level = "INFO"
+
+
+[tool.isort]
+# https://pycqa.github.io/isort/docs/configuration/config_files/#pyprojecttoml-preferred-format
+atomic=true
+profile='black'
+skip_glob=["*/htmlcov/*","*/migrations/*","*/local_test/*"]
+known_first_party=['django_example']
+line_length=100
+lines_after_imports=2
+
+
+[tool.coverage.run]
+omit = [".*"]
+
+
+[tool.tox]
+# https://tox.readthedocs.io/en/latest/example/basic.html#pyproject-toml-tox-legacy-ini
+legacy_tox_ini = """
+[tox]
+isolated_build = True
+envlist = py{39,310}
+skip_missing_interpreters = True
+
+[testenv]
+passenv = *
+whitelist_externals = make
+commands =
+    make test
+"""
