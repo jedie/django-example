@@ -15,9 +15,9 @@ PACKAGE_ROOT = Path(django_example.__file__).parent.parent
 
 def publish():
     """
-        Publish to PyPi
-        Call this via:
-            $ poetry run publish
+    Publish to PyPi
+    Call this via:
+        $ poetry run publish
     """
     # TODO: verbose_check_call('make', 'test')  # don't publish if tests fail
     verbose_check_call('make', 'fix-code-style')  # don't publish if code style wrong
