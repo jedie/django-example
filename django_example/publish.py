@@ -19,7 +19,7 @@ def publish():
     Call this via:
         $ poetry run publish
     """
-    # TODO: verbose_check_call('make', 'test')  # don't publish if tests fail
-    verbose_check_call('make', 'fix-code-style')  # don't publish if code style wrong
+    verbose_check_call('make', 'test')  # don't publish if tests fail
+    verbose_check_call('make', 'lint')  # don't publish if code style wrong
 
     poetry_publish(package_root=PACKAGE_ROOT, version=django_example.__version__)
