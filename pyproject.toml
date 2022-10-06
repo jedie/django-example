@@ -6,6 +6,7 @@ authors = ["JensDiemer <git@jensdiemer.de>"]
 license = "GPL"
 homepage = "https://github.com/jedie/django-example"
 packages = [{ include = "django_example" }]
+readme = 'README.md'
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/jedie/django-example/issues"

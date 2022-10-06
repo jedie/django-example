@@ -4,6 +4,8 @@
 !.flake8
 !.gitignore
 __pycache__
+publish.log
 secret.txt
 /coverage.xml
 /htmlcov/
+/dist/
