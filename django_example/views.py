@@ -1,4 +1,8 @@
+import getpass
 import logging
+import os
+import sys
+from pathlib import Path
 
 from django.conf import settings
 from django.http import HttpRequest
@@ -24,9 +28,27 @@ class DebugView(TemplateView):
             dict(
                 version=__version__,
                 user=user,
+                #
                 env_type=settings.ENV_TYPE,
+                settings_module=settings.SETTINGS_MODULE,
             )
         )
         if user.is_authenticated:
-            context['meta'] = request.META
+            ruid, euid, suid = os.getresuid()
+            rgid, egid, sgid = os.getresgid()
+            context.update(
+                dict(
+                    cwd=Path().cwd(),
+                    python_version=sys.version,
+                    executable=sys.executable,
+                    sys_prefix=sys.prefix,
+                    os_uname=' '.join(os.uname()),
+                    process_user=getpass.getuser(),
+                    user_id=ruid,
+                    user_group_id=rgid,
+                    pid=os.getpid(),
+                    environ=dict(os.environ),
+                    meta=request.META,
+                )
+            )
         return super().get_context_data(**context)

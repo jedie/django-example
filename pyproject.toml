@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-example"
-version = "0.0.1rc0"
+version = "0.1.0rc0"
 description = "Demo YunoHost Application to demonstrate the integration of a Django project under YunoHost."
 authors = ["JensDiemer <git@jensdiemer.de>"]
 license = "GPL"
@@ -13,12 +13,12 @@ readme = 'README.md'
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0.0"  # Stay with 3.9 until YunoHost used >=Debian 11 (Bullseye)
-django-tools = "*"  # https://github.com/jedie/django-tools/
-django_yunohost_integration = ">=0.5.0rc1"  # https://github.com/YunoHost-Apps/django_yunohost_integration
+bx_django_utils = "*"  # https://github.com/boxine/bx_django_utils
 
 [tool.poetry.dev-dependencies]
+django_yunohost_integration = "*"  # https://github.com/YunoHost-Apps/django_yunohost_integration
 bx_py_utils = "*"  # https://github.com/boxine/bx_py_utils
-bx_django_utils = "*"  # https://github.com/boxine/bx_django_utils
+django-tools = "*"  # https://github.com/jedie/django-tools/
 tox = "*"
 darker = "*"  # https://github.com/akaihola/pytest-darker
 coveralls = "*"
@@ -29,6 +29,7 @@ safety = "*"  # https://github.com/pyupio/safety
 requests = "*"  # https://github.com/psf/requests
 packaging = "*"  # https://github.com/pypa/packaging
 poetry-publish = '*'  # https://github.com/jedie/poetry-publish
+beautifulsoup4 = "*"  # https://pypi.org/project/beautifulsoup4/
 
 
 [tool.poetry.scripts]

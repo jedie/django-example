@@ -10,6 +10,21 @@ python-versions = ">=3.7"
 tests = ["mypy (>=0.800)", "pytest", "pytest-asyncio"]
 
 [[package]]
+name = "beautifulsoup4"
+version = "4.11.1"
+description = "Screen-scraping library"
+category = "dev"
+optional = false
+python-versions = ">=3.6.0"
+
+[package.dependencies]
+soupsieve = ">1.2"
+
+[package.extras]
+html5lib = ["html5lib"]
+lxml = ["lxml"]
+
+[[package]]
 name = "black"
 version = "22.8.0"
 description = "The uncompromising code formatter."
@@ -35,7 +50,7 @@ uvloop = ["uvloop (>=0.15.2)"]
 name = "bleach"
 version = "5.0.1"
 description = "An easy safelist-based HTML-sanitizing tool."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 
@@ -51,7 +66,7 @@ dev = ["Sphinx (==4.3.2)", "black (==22.3.0)", "build (==0.8.0)", "flake8 (==4.0
 name = "bx-django-utils"
 version = "36"
 description = "Various Django utility functions"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7,<4.0.0"
 
@@ -113,23 +128,9 @@ colorama = {version = "*", markers = "platform_system == \"Windows\""}
 name = "colorama"
 version = "0.4.5"
 description = "Cross-platform colored terminal text."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-
-[[package]]
-name = "colorlog"
-version = "6.7.0"
-description = "Add colours to the output of Python's logging module."
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[package.dependencies]
-colorama = {version = "*", markers = "sys_platform == \"win32\""}
-
-[package.extras]
-development = ["black", "flake8", "mypy", "pytest", "types-colorama"]
 
 [[package]]
 name = "commonmark"
@@ -235,7 +236,7 @@ bcrypt = ["bcrypt"]
 name = "django-tools"
 version = "0.54.0"
 description = "miscellaneous tools for Django based projects"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7,<4.0.0"
 
@@ -248,16 +249,15 @@ pprintpp = "*"
 
 [[package]]
 name = "django-yunohost-integration"
-version = "0.5.0rc1"
+version = "0.4.1"
 description = "Glue code to package django projects as yunohost apps."
-category = "main"
+category = "dev"
 optional = false
-python-versions = ">=3.9,<4.0.0"
+python-versions = ">=3.7,<4.0.0"
 
 [package.dependencies]
-colorlog = "*"
 django = "*"
-django-tools = "*"
+django-tools = ">=0.54.0"
 
 [package.extras]
 ynh = ["django-axes", "django-redis", "gunicorn", "psycopg2"]
@@ -331,7 +331,7 @@ pyflakes = ">=2.5.0,<2.6.0"
 name = "icdiff"
 version = "2.0.5"
 description = "improved colored diff"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -513,7 +513,7 @@ twine = "*"
 name = "pprintpp"
 version = "0.4.0"
 description = "A drop-in replacement for pprint that's actually pretty"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -586,7 +586,7 @@ docutils = "*"
 name = "python-stdnum"
 version = "1.17"
 description = "Python module to handle standardized numbers and codes"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -746,9 +746,17 @@ testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+
+[[package]]
+name = "soupsieve"
+version = "2.3.2.post1"
+description = "A modern CSS selector implementation for Beautiful Soup."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
 
 [[package]]
 name = "sqlparse"
@@ -865,7 +873,7 @@ testing = ["coverage (>=6.2)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7
 name = "webencodings"
 version = "0.5.1"
 description = "Character encoding aliases for legacy web content"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -884,12 +892,16 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<4.0.0"  # Stay with 3.9 until YunoHost used >=Debian 11 (Bullseye)
-content-hash = "666d28f04d9e5227584cb3ddcd4a954f8c7978d1bb3d7cfbe85bca76bca6f5ab"
+content-hash = "e0216b37929c1c3e9e5a31de512c55fee784d2929f4070af6d839ef0cab1f72b"
 
 [metadata.files]
 asgiref = [
     {file = "asgiref-3.5.2-py3-none-any.whl", hash = "sha256:1d2880b792ae8757289136f1db2b7b99100ce959b2aa57fd69dab783d05afac4"},
     {file = "asgiref-3.5.2.tar.gz", hash = "sha256:4a29362a6acebe09bf1d6640db38c1dc3d9217c68e6f9f6204d72667fc19a424"},
+]
+beautifulsoup4 = [
+    {file = "beautifulsoup4-4.11.1-py3-none-any.whl", hash = "sha256:58d5c3d29f5a36ffeb94f02f0d786cd53014cf9b3b3951d42e0080d8a9498d30"},
+    {file = "beautifulsoup4-4.11.1.tar.gz", hash = "sha256:ad9aa55b65ef2808eb405f46cf74df7fcb7044d5cbc26487f96eb2ef2e436693"},
 ]
 black = [
     {file = "black-22.8.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:ce957f1d6b78a8a231b18e0dd2d94a33d2ba738cd88a7fe64f53f659eea49fdd"},
@@ -1010,10 +1022,6 @@ colorama = [
     {file = "colorama-0.4.5-py2.py3-none-any.whl", hash = "sha256:854bf444933e37f5824ae7bfc1e98d5bce2ebe4160d46b5edf346a89358e99da"},
     {file = "colorama-0.4.5.tar.gz", hash = "sha256:e6c6b4334fc50988a639d9b98aa429a0b57da6e17b9a44f0451f930b6967b7a4"},
 ]
-colorlog = [
-    {file = "colorlog-6.7.0-py2.py3-none-any.whl", hash = "sha256:0d33ca236784a1ba3ff9c532d4964126d8a2c44f1f0cb1d2b0728196f512f662"},
-    {file = "colorlog-6.7.0.tar.gz", hash = "sha256:bd94bd21c1e13fac7bd3153f4bc3a7dc0eb0974b8bc2fdf1a989e474f6e582e5"},
-]
 commonmark = [
     {file = "commonmark-0.9.1-py2.py3-none-any.whl", hash = "sha256:da2f38c92590f83de410ba1a3cbceafbc74fee9def35f9251ba9a971d6d66fd9"},
     {file = "commonmark-0.9.1.tar.gz", hash = "sha256:452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60"},
@@ -1119,8 +1127,8 @@ django-tools = [
     {file = "django_tools-0.54.0-py3-none-any.whl", hash = "sha256:a7b7bfa5b9c5a81966454d17dffb2403cee25a806c858ee0486a08798227598f"},
 ]
 django-yunohost-integration = [
-    {file = "django_yunohost_integration-0.5.0rc1-py3-none-any.whl", hash = "sha256:0e6d8ec12d48d9897c9dc02fc60c35bb3c7cc5f9446961fc0be61bb6f5586197"},
-    {file = "django_yunohost_integration-0.5.0rc1.tar.gz", hash = "sha256:5d8823acb83a668a5126e1324d2c3c7b239595a77a03d8c9bdaa8446154c64e4"},
+    {file = "django_yunohost_integration-0.4.1-py3-none-any.whl", hash = "sha256:e097cd209f3e09cbe325eadea36e3eb64c051690297c38dd89a1cd64bc35d92e"},
+    {file = "django_yunohost_integration-0.4.1.tar.gz", hash = "sha256:3769859db283a6b4d17468aeb1decab2f79d4b3e128b341342948e7bb3121e8a"},
 ]
 docopt = [
     {file = "docopt-0.6.2.tar.gz", hash = "sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"},
@@ -1319,6 +1327,10 @@ setuptools = [
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
+]
+soupsieve = [
+    {file = "soupsieve-2.3.2.post1-py3-none-any.whl", hash = "sha256:3b2503d3c7084a42b1ebd08116e5f81aadfaea95863628c80a3b774a11b7c759"},
+    {file = "soupsieve-2.3.2.post1.tar.gz", hash = "sha256:fc53893b3da2c33de295667a0e19f078c14bf86544af307354de5fcf12a3f30d"},
 ]
 sqlparse = [
     {file = "sqlparse-0.4.3-py3-none-any.whl", hash = "sha256:0323c0ec29cd52bceabc1b4d9d579e311f3e4961b98d174201d5622a23b85e34"},
