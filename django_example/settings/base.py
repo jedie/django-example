@@ -40,9 +40,9 @@ if not __SECRET_FILE.is_file():
     print(f'Generate {__SECRET_FILE}')
     from secrets import token_urlsafe as __token_urlsafe
 
-    __SECRET_FILE.open('w').write(__token_urlsafe(128))
+    __SECRET_FILE.write_text(__token_urlsafe(128))
 
-SECRET_KEY = __SECRET_FILE.open('r').read().strip()
+SECRET_KEY = __SECRET_FILE.read_text().strip()
 
 
 # Application definition
@@ -157,12 +157,11 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
     'formatters': {
-        'colored': {  # https://github.com/borntyping/python-colorlog
-            '()': 'colorlog.ColoredFormatter',
-            'format': '%(log_color)s%(asctime)s %(levelname)8s %(cut_path)s:%(lineno)-3s %(message)s',
+        'verbose': {
+            'format': '%(asctime)s %(levelname)8s %(cut_path)s:%(lineno)-3s %(message)s',
         }
     },
-    'handlers': {'console': {'class': 'colorlog.StreamHandler', 'formatter': 'colored'}},
+    'handlers': {'console': {'class': 'logging.StreamHandler', 'formatter': 'verbose'}},
     'loggers': {
         'django': {'handlers': ['console'], 'level': 'INFO', 'propagate': False},
         'django_example': {'handlers': ['console'], 'level': 'DEBUG', 'propagate': False},

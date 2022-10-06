@@ -38,11 +38,11 @@ fix-code-style: ## Fix code formatting
 tox-listenvs: check-poetry ## List all tox test environments
 	poetry run tox --listenvs
 
-tox: check-poetry ## Run pytest via tox with all environments
+tox: check-poetry ## Run tests via tox with all environments
 	poetry run tox
 
 test: install  ## Run tests
-	poetry run python -Wa manage.py test
+	DJANGO_SETTINGS_MODULE=django_example.settings.test poetry run python -Wa manage.py test
 
 local-test: install  ## Run local_test.py to run the project locally
 	./manage.sh run_testserver

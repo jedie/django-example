@@ -1,18 +1,22 @@
-import difflib
 import os
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
-import django_yunohost_integration
 import tomli
-from bx_django_utils.filename import clean_filename
 from bx_py_utils.path import assert_is_dir, assert_is_file
+from django.test import SimpleTestCase
 from django_tools.unittest_utils.project_setup import check_editor_config
 from django_yunohost_integration.test_utils import assert_project_version
+from packaging.version import Version
+
+import django_example
 
 
-PACKAGE_ROOT = Path(__file__).parent.parent
+PACKAGE_ROOT = Path(django_example.__file__).parent.parent
+assert_is_dir(PACKAGE_ROOT)
+assert_is_file(PACKAGE_ROOT / 'pyproject.toml')
 
 
 def assert_file_contains_string(file_path, string):
@@ -23,32 +27,9 @@ def assert_file_contains_string(file_path, string):
     raise AssertionError(f'File {file_path} does not contain {string!r} !')
 
 
-def test_version():
-    upstream_version = django_yunohost_integration.__version__
-
-    assert_project_version(
-        current_version=upstream_version,
-        github_project_url='https://github.com/YunoHost-Apps/django_yunohost_integration',
-    )
-
-    pyproject_toml_path = Path(PACKAGE_ROOT, 'pyproject.toml')
-    pyproject_toml = tomli.loads(pyproject_toml_path.read_text(encoding='UTF-8'))
-    pyproject_version = pyproject_toml['tool']['poetry']['version']
-    assert pyproject_version.startswith(f'{upstream_version}+ynh')
-
-    # pyproject.toml needs a PEP 440 conform version and used "+ynh"
-    # the YunoHost syntax is: "~ynh", just "convert this:
-    manifest_version = pyproject_version.replace('+', '~')
-
-    assert_file_contains_string(
-        file_path=Path(PACKAGE_ROOT, 'manifest.json'),
-        string=f'"version": "{manifest_version}"',
-    )
-
-
 def poetry_check_output(*args):
     poerty_bin = shutil.which('poetry')
-
+    assert_is_file(poerty_bin)
     output = subprocess.check_output(
         (poerty_bin,) + args,
         text=True,
@@ -56,54 +37,30 @@ def poetry_check_output(*args):
         stderr=subprocess.STDOUT,
         cwd=str(PACKAGE_ROOT),
     )
-    print(output)
     return output
 
 
-def test_poetry_check():
-    output = poetry_check_output('check')
-    assert output == 'All set!\n'
+class ProjectSetupTestCase(SimpleTestCase):
+    def test_code_style(self):
+        subprocess.check_call([sys.executable, '-m', 'darker', '--color'])
 
+    def test_version(self):
+        current_version = django_example.__version__
 
-def test_requirements_txt():
-    requirements_txt = PACKAGE_ROOT / 'conf' / 'requirements.txt'
-    assert_is_file(requirements_txt)
+        if not Version(current_version).is_prerelease:
+            assert_project_version(
+                current_version=current_version,
+                github_project_url='https://github.com/jedie/django-example',
+            )
 
-    output = poetry_check_output('export', '-f', 'requirements.txt')
-    assert 'Warning' not in output
+        pyproject_toml_path = Path(PACKAGE_ROOT, 'pyproject.toml')
+        pyproject_toml = tomli.loads(pyproject_toml_path.read_text(encoding='UTF-8'))
+        pyproject_version = pyproject_toml['tool']['poetry']['version']
+        self.assertEqual(pyproject_version, current_version)
 
-    current_content = requirements_txt.read_text()
+    def test_poetry_check(self):
+        output = poetry_check_output('check')
+        assert output == 'All set!\n'
 
-    diff = '\n'.join(
-        difflib.unified_diff(
-            current_content.splitlines(),
-            output.splitlines(),
-            fromfile=str(requirements_txt),
-            tofile='FRESH EXPORT',
-        )
-    )
-    print(diff)
-    assert diff == '', f'{requirements_txt} is not up-to-date! (Hint: call: "make update")'
-
-
-def test_screenshot_filenames():
-    """
-    https://forum.yunohost.org/t/yunohost-bot-cant-handle-spaces-in-screenshots/19483
-    """
-    screenshot_path = PACKAGE_ROOT / 'doc' / 'screenshots'
-    assert_is_dir(screenshot_path)
-    renamed = []
-    for file_path in screenshot_path.iterdir():
-        file_name = file_path.name
-        if file_name.startswith('.'):
-            continue
-        cleaned_name = clean_filename(file_name)
-        if cleaned_name != file_name:
-            new_path = file_path.with_name(cleaned_name)
-            file_path.rename(new_path)
-            renamed.append(f'{file_name!r} renamed to {cleaned_name!r}')
-    assert not renamed, f'Bad screenshots file names found: {", ".join(renamed)}'
-
-
-def test_check_editor_config():
-    check_editor_config(package_root=PACKAGE_ROOT)
+    def test_check_editor_config(test):
+        check_editor_config(package_root=PACKAGE_ROOT)

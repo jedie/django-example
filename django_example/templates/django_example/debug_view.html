@@ -1,0 +1,31 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Example Project / Debug View{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name"><a href="/">Debug View</a></h1>
+{% endblock %}
+
+{% block content %}
+    <h2>YunoHost Django Example Project v{{ version }}</h2>
+    <p>Go to <a href="{% url 'admin:index' %}">Django Admin</a>.</p>
+    {% if not user.is_authenticated %}<p>Log in to see more information</p>{% endif %}
+    <table>
+        <tr><td><code>settings.SETTINGS_MODULE</code>:</td><td><code>{{ settings_module }}</code></td></tr>
+        <tr><td>Env. type:</td><td><code>{{ env_type }}</code></td></tr>
+        <tr><td>User:</td><td>{{ user }}</td></tr>
+        <tr><td>Process User:</td><td>{{ process_user }} (ID: {{ user_id }}:{{ user_group_id }})</td></tr>
+        <tr><td>Executable:</td><td>{{ executable }}</td></tr>
+        <tr><td>Process ID:</td><td>{{ pid }}</td></tr>
+        <tr><td>Python Version:</td><td>{{ python_version }}</td></tr>
+        <tr><td>Sys prefix:</td><td>{{ sys_prefix }}</td></tr>
+        <tr><td>Current work dir:</td><td>{{ cwd }}</td></tr>
+        <tr><td>OS uname:</td><td>{{ os_uname }}</td></tr>
+        <tr><td>OS Environment:</td><td>{% if environ %}<pre><code>{{ environ|pprint }}</code></pre>{% endif %}</td></tr>
+        <tr><td>META:</td><td>{% if meta %}<pre><code>{{ meta|pprint }}</code></pre>{% endif %}</td></tr>
+    </table>
+{% endblock %}
+
+{% block footer %}
+<hr><p><a href="https://github.com/jedie/django-example">github.com/jedie/django-example</a></p>
+{% endblock %}
