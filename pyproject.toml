@@ -27,6 +27,11 @@ EditorConfig = "*"  # https://github.com/editorconfig/editorconfig-core-py
 safety = "*"  # https://github.com/pyupio/safety
 requests = "*"  # https://github.com/psf/requests
 packaging = "*"  # https://github.com/pypa/packaging
+poetry-publish = '*'  # https://github.com/jedie/poetry-publish
+
+
+[tool.poetry.scripts]
+publish = "django_example.publish:publish"
 
 
 [build-system]

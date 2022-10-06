@@ -53,6 +53,9 @@ local-diff-settings:  ## Run "manage.py diffsettings"
 safety:  ## Run https://github.com/pyupio/safety
 	poetry run safety check --full-report
 
+publish: ## Release new version to PyPi
+	poetry run publish
+
 ##############################################################################
 
 .PHONY: help check-poetry install-poetry install update local-test
