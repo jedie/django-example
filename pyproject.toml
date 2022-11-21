@@ -1,15 +1,15 @@
 [tool.poetry]
-name = "django-example"
-version = "0.1.0"
+name = "django_example"
+version = "0.2.0rc1"
 description = "Demo YunoHost Application to demonstrate the integration of a Django project under YunoHost."
 authors = ["JensDiemer <git@jensdiemer.de>"]
 license = "GPL"
-homepage = "https://github.com/jedie/django-example"
+homepage = "https://github.com/jedie/django_example"
 packages = [{ include = "django_example" }]
 readme = 'README.md'
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/jedie/django-example/issues"
+"Bug Tracker" = "https://github.com/jedie/django_example/issues"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0.0"  # Stay with 3.9 until YunoHost used >=Debian 11 (Bullseye)

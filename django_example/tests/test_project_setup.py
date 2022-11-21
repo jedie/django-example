@@ -50,7 +50,7 @@ class ProjectSetupTestCase(SimpleTestCase):
         if not Version(current_version).is_prerelease:
             assert_project_version(
                 current_version=current_version,
-                github_project_url='https://github.com/jedie/django-example',
+                github_project_url='https://github.com/jedie/django_example',
             )
 
         pyproject_toml_path = Path(PACKAGE_ROOT, 'pyproject.toml')
