@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django_example"
-version = "0.2.0rc1"
+version = "0.2.0"
 description = "Demo YunoHost Application to demonstrate the integration of a Django project under YunoHost."
 authors = [
     "Jens Diemer <django-example@jensdiemer.de>",
