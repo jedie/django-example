@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-MAX_LINE_LENGTH := 100
+MAX_LINE_LENGTH := 119
 
 all: help
 
@@ -20,12 +20,19 @@ install-poetry:  ## install or update poetry
 	curl -sSL https://install.python-poetry.org | python3 -
 
 install: check-poetry  ## install project via poetry
+	python3 -m venv .venv
 	poetry install
 
 update: check-poetry  ## update the sources and installation and generate "conf/requirements.txt"
+	python3 -m venv .venv
 	poetry self update
 	poetry update -v
 	poetry install
+
+without-poetry-install: ## Install/update without poetry (not recommended!)
+	python3 -m venv .venv
+	.venv/bin/pip install -U pip
+	.venv/bin/pip install -e .
 
 lint: ## Run code formatters and linter
 	poetry run isort --check-only .
@@ -42,7 +49,7 @@ tox: check-poetry ## Run tests via tox with all environments
 	poetry run tox
 
 test: install  ## Run tests
-	DJANGO_SETTINGS_MODULE=django_example.settings.test poetry run python -Wa manage.py test
+	DJANGO_SETTINGS_MODULE=django_example.settings.test poetry run python -Wa manage.py test -v 2
 
 local-test: install  ## Run local_test.py to run the project locally
 	./manage.sh run_testserver

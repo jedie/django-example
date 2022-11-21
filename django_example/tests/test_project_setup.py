@@ -50,7 +50,7 @@ class ProjectSetupTestCase(SimpleTestCase):
         if not Version(current_version).is_prerelease:
             assert_project_version(
                 current_version=current_version,
-                github_project_url='https://github.com/jedie/django-example',
+                github_project_url='https://github.com/jedie/django_example',
             )
 
         pyproject_toml_path = Path(PACKAGE_ROOT, 'pyproject.toml')
@@ -64,3 +64,6 @@ class ProjectSetupTestCase(SimpleTestCase):
 
     def test_check_editor_config(test):
         check_editor_config(package_root=PACKAGE_ROOT)
+
+    def test_mypy(self):
+        subprocess.check_call(['mypy', PACKAGE_ROOT])
