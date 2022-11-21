@@ -2,14 +2,20 @@
 name = "django_example"
 version = "0.2.0rc1"
 description = "Demo YunoHost Application to demonstrate the integration of a Django project under YunoHost."
-authors = ["JensDiemer <git@jensdiemer.de>"]
-license = "GPL"
+authors = [
+    "Jens Diemer <django-example@jensdiemer.de>",
+]
+maintainers = [
+    "Jens Diemer <django-example@jensdiemer.de>",
+]
 homepage = "https://github.com/jedie/django_example"
 packages = [{ include = "django_example" }]
+license = "GPL-3.0-or-later"
 readme = 'README.md'
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/jedie/django_example/issues"
+
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0.0"  # Stay with 3.9 until YunoHost used >=Debian 11 (Bullseye)
@@ -30,6 +36,7 @@ requests = "*"  # https://github.com/psf/requests
 packaging = "*"  # https://github.com/pypa/packaging
 poetry-publish = '*'  # https://github.com/jedie/poetry-publish
 beautifulsoup4 = "*"  # https://pypi.org/project/beautifulsoup4/
+mypy = "*"  # https://github.com/python/mypy
 
 
 [tool.poetry.scripts]
@@ -44,7 +51,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.darker]
 src = ['.']
 revision = "origin/main..."
-line_length = 100
+line_length = 119
 verbose = true
 skip_string_normalization = true
 diff = false
@@ -61,14 +68,14 @@ log_level = "INFO"
 # https://pycqa.github.io/isort/docs/configuration/config_files/#pyprojecttoml-preferred-format
 atomic=true
 profile='black'
-skip_glob=["*/htmlcov/*","*/migrations/*","*/local_test/*"]
+skip_glob=['.*', '*/htmlcov/*','*/migrations/*','*/local_test/*']
 known_first_party=['django_example']
-line_length=100
+line_length=119
 lines_after_imports=2
 
 
 [tool.coverage.run]
-omit = [".*"]
+omit = ['.*', '*/tests/*']
 
 
 [tool.tox]
@@ -85,3 +92,32 @@ whitelist_externals = make
 commands =
     make test
 """
+
+
+[tool.mypy]
+warn_unused_configs = true
+ignore_missing_imports = true
+allow_redefinition = true  # https://github.com/python/mypy/issues/7165
+show_error_codes = true
+check_untyped_defs = true
+plugins = []
+exclude = ['.venv', 'tests']
+
+
+[manageprojects] # https://github.com/jedie/manageprojects
+initial_revision = "1a938d2"
+initial_date = 2022-11-21T19:40:33+01:00
+cookiecutter_template = "https://github.com/jedie/cookiecutter_templates"
+cookiecutter_directory = "poetry-python"
+
+[manageprojects.cookiecutter_context.cookiecutter]
+full_name = "Jens Diemer"
+github_username = "jedie"
+author_email = "django-example@jensdiemer.de"
+package_name = "django_example"
+package_version = "0.2.0"
+package_description = "Demo YunoHost Application to demonstrate the integration of a Django project under YunoHost."
+package_url = "https://github.com/jedie/django_example"
+issues_url = "https://github.com/jedie/django_example/issues"
+license = "GPL-3.0-or-later"
+_template = "https://github.com/jedie/cookiecutter_templates"

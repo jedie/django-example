@@ -37,7 +37,7 @@ ALLOWED_HOSTS = INTERNAL_IPS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_PATH / 'django_example.sqlite3'),
+        'NAME': str(BASE_PATH / 'django_example.sqlite3'),  # noqa:405
         # https://docs.djangoproject.com/en/dev/ref/databases/#database-is-locked-errors
         'timeout': 30,
     }
@@ -51,7 +51,7 @@ print(f'Use Database: {DATABASES["default"]["NAME"]!r}', file=__sys.stderr)
 # Disable security features, because development server doesn't support HTTPS
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
-SECURE_PROXY_SSL_HEADER = None
+SECURE_PROXY_SSL_HEADER = None  # type: ignore[assignment]
 SECURE_SSL_REDIRECT = False
 SECURE_HSTS_PRELOAD = False
 SECURE_HSTS_SECONDS = 0

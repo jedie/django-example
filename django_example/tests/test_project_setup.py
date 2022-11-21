@@ -64,3 +64,6 @@ class ProjectSetupTestCase(SimpleTestCase):
 
     def test_check_editor_config(test):
         check_editor_config(package_root=PACKAGE_ROOT)
+
+    def test_mypy(self):
+        subprocess.check_call(['mypy', PACKAGE_ROOT])
