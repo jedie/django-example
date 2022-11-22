@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django_example"
-version = "0.2.0rc1"
+version = "0.2.0"
 description = "Demo YunoHost Application to demonstrate the integration of a Django project under YunoHost."
 authors = [
     "Jens Diemer <django-example@jensdiemer.de>",
@@ -9,9 +9,9 @@ maintainers = [
     "Jens Diemer <django-example@jensdiemer.de>",
 ]
 homepage = "https://github.com/jedie/django_example"
-packages = [{ include = "django_example" }]
 license = "GPL-3.0-or-later"
 readme = 'README.md'
+packages = [{ include = "django_example" }]
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/jedie/django_example/issues"
@@ -51,7 +51,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.darker]
 src = ['.']
 revision = "origin/main..."
-line_length = 119
+line_length = 100
 verbose = true
 skip_string_normalization = true
 diff = false
@@ -70,7 +70,7 @@ atomic=true
 profile='black'
 skip_glob=['.*', '*/htmlcov/*','*/migrations/*','*/local_test/*']
 known_first_party=['django_example']
-line_length=119
+line_length=100
 lines_after_imports=2
 
 
@@ -109,6 +109,9 @@ initial_revision = "1a938d2"
 initial_date = 2022-11-21T19:40:33+01:00
 cookiecutter_template = "https://github.com/jedie/cookiecutter_templates"
 cookiecutter_directory = "poetry-python"
+applied_migrations = [
+    "dd69dcf", # 2022-11-22T19:48:28+01:00
+]
 
 [manageprojects.cookiecutter_context.cookiecutter]
 full_name = "Jens Diemer"
