@@ -28,7 +28,8 @@ print(f'BASE_PATH:{BASE_PATH}')
 
 ###############################################################################
 
-LOGIN_URL = 'admin:login'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'ssowat-login'  # SSOwatLoginRedirectView
 
 ###############################################################################
 
